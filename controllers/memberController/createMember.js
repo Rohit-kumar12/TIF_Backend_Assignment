@@ -16,7 +16,9 @@ export const CreateMember = async (req, res) => {
     const roleObject = await Role.findById(role);
     const userObject = await User.findById(user);
     const communityObject = await Community.findById(community);
-
+    // const objectId = communityObject.owner;
+    // const id = objectId.toString();
+    // console.log(id);
     //checking if role is exists or not
     if (!roleObject) {
       return res.status(404).json({
@@ -34,12 +36,14 @@ export const CreateMember = async (req, res) => {
       return res.status(404).json({
         message: "Community doesnot exists",
       });
-    } else {
-      if (communityObject.owner !== req.user.userId) {
-        return res.status(405).json({
-          message: "NOT_ALLOWED_ACCESS ",
-        });
-      }
+    }
+    const objectId = communityObject.owner;
+    const id = objectId.toString();
+    //verify if the user is community admin or not
+    if (id !== req.user.userId) {
+      return res.status(405).json({
+        message: "NOT_ALLOWED_ACCESS ",
+      });
     }
 
     //creating new member
