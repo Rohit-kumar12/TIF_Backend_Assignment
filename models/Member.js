@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 // import { Snowflake } from "@theinternetfolks/snowflake";
-
 const memberSchema = new mongoose.Schema(
   {
     // _id: {

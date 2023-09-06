@@ -1,9 +1,10 @@
 import Member from "../../models/Member.js";
-
+import Community from "../../models/Community.js";
 export const getAllCommunityMembers = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const perPage = 10;
   try {
+    console.log(req.params.id)
     const totalCommunities = await Community.countDocuments();
     const totalPages = Math.ceil(totalCommunities / perPage);
     const id = req.params.id;
